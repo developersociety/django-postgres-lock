@@ -1,0 +1,90 @@
+name: CI
+on: pull_request
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.8'
+      - name: Python pip cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/testing.txt') }}
+      - name: Run check
+        run: |
+          pip install tox
+          tox -e check
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.8'
+      - name: Python pip cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/testing.txt') }}
+      - name: Run lint
+        run: |
+          pip install tox
+          tox -e lint
+
+  test:
+    name: Test -- Python ${{ matrix.python }} - Django ${{ matrix.django }}
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        python:
+          - '3.5'
+          - '3.6'
+          - '3.7'
+          - '3.8'
+        django:
+          - '1.11'
+          - '2.2'
+        exclude:
+          - python: '3.8'
+            django: '1.11'
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Python pip cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-python${{ matrix.python }}-django${{ matrix.django }}-pip-${{ hashFiles('requirements/testing.txt') }}
+      - name: Run tests
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: password
+          TOX_TESTENV_PASSENV: "PG*"
+          PYTHON_VERSION: ${{ matrix.python }}
+        run: |
+          pip install tox
+          tox -e py${PYTHON_VERSION//./}-django${{ matrix.django }}
+    services:
+      postgres:
+        image: postgres:12-alpine
+        env:
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
