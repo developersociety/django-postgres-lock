@@ -3,16 +3,16 @@ on: pull_request
 jobs:
   check:
     name: Check
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: '3.8'
       - name: Python pip cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements/testing.txt') }}
@@ -23,16 +23,16 @@ jobs:
 
   lint:
     name: Lint
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: '3.8'
       - name: Python pip cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements/testing.txt') }}
@@ -43,7 +43,7 @@ jobs:
 
   test:
     name: Test -- Python ${{ matrix.python }} - Django ${{ matrix.django }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         python:
@@ -62,11 +62,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
       - name: Python pip cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-python${{ matrix.python }}-django${{ matrix.django }}-pip-${{ hashFiles('requirements/testing.txt') }}
@@ -82,7 +82,7 @@ jobs:
           tox -e py${PYTHON_VERSION//./}-django${{ matrix.django }}
     services:
       postgres:
-        image: postgres:12-alpine
+        image: postgres:13-alpine
         env:
           POSTGRES_PASSWORD: password
         ports:
