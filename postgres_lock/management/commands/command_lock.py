@@ -8,7 +8,7 @@ from postgres_lock.lock import PostgresLock
 
 
 class Command(BaseCommand):
-    help = "Hello there!"
+    help = "Run a command inside a Postgres lock"
 
     def add_arguments(self, parser):
         super().add_arguments(parser)
