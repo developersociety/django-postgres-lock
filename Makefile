@@ -106,10 +106,10 @@ pip-install-local: venv-check
 
 # ISort
 isort-lint:
-	isort --recursive --check-only --diff postgres_lock tests
+	isort --check-only --diff postgres_lock tests
 
 isort-format:
-	isort --recursive postgres_lock tests
+	isort postgres_lock tests
 
 
 # Flake8
