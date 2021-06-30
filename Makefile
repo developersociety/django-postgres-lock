@@ -138,10 +138,10 @@ coverage-clean:
 
 # Black
 black-lint:
-	black --line-length 99 --target-version py35 --exclude '/migrations/' --check postgres_lock tests setup.py
+	black --check postgres_lock tests setup.py
 
 black-format:
-	black --line-length 99 --target-version py35 --exclude '/migrations/' postgres_lock tests setup.py
+	black postgres_lock tests setup.py
 
 
 #pipdeptree
