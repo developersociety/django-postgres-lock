@@ -26,6 +26,11 @@ class Command(BaseCommand):
             help="Try and acquire a lock, but fail immediately if the lock cannot be acquired.",
         )
         parser.add_argument(
+            "--ignore-fail",
+            action="store_true",
+            help="Ignore failure if a lock cannot be acquired (return a successful exit code).",
+        )
+        parser.add_argument(
             "--shared",
             action="store_true",
             help="Acquire a lock which can be shared with other sessions.",
@@ -44,5 +49,7 @@ class Command(BaseCommand):
                 # Raise the return code of the child process if an error occurs
                 if completed.returncode != 0:
                     sys.exit(completed.returncode)
+            elif options["ignore_fail"]:
+                self.stderr.write("Unable to acquire lock")
             else:
                 raise CommandError("Unable to acquire lock")

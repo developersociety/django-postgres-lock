@@ -47,3 +47,9 @@ To exit immediately if a lock can't be acquired:
 .. code-block:: console
 
     $ ./manage.py command_lock --try --name clearsessions -- ./manage.py clearsessions
+
+To ignore a lock failure and return a successful exit code:
+
+.. code-block:: console
+
+    $ ./manage.py command_lock --try --ignore-fail --name clearsessions -- ./manage.py clearsessions
