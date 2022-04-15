@@ -1,5 +1,5 @@
 black==22.3.0 ; python_version >= '3.6'
 coverage==5.5
 flake8==3.9.2
-isort==5.9.1 ; python_version >= '3.6'
+isort==5.10.1 ; python_version >= '3.6'
 pipdeptree==2.2.0
