@@ -2,4 +2,4 @@
 branch = true
 parallel = true
 include =
-    postgres_lock/*
+    postgres_lock/**
