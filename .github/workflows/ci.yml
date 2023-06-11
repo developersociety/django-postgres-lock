@@ -50,7 +50,7 @@ jobs:
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: password
-          TOX_TESTENV_PASSENV: "PG*"
+          TOX_OVERRIDE: "testenv.passenv=PG*"
           PYTHON_VERSION: ${{ matrix.python }}
         run: |
           pip install $(grep "^tox==" requirements/local.txt)
