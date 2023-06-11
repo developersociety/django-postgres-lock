@@ -7,6 +7,8 @@ DATABASES = {
     }
 }
 
+USE_TZ = True
+
 SECRET_KEY = "postgres_lock"
 
 INSTALLED_APPS = ["postgres_lock", "tests"]
