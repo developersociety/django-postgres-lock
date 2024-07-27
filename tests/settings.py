@@ -9,6 +9,6 @@ DATABASES = {
 
 USE_TZ = True
 
-SECRET_KEY = "postgres_lock"
+SECRET_KEY = "postgres_lock"  # noqa:S105
 
 INSTALLED_APPS = ["postgres_lock", "tests"]

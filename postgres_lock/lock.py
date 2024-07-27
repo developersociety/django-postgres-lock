@@ -26,10 +26,8 @@ class PostgresLock:
         else:
             shared_str = ""
 
-        self.lock_function = "pg{try_str}_advisory_lock{shared_str}".format(
-            try_str=try_str, shared_str=shared_str
-        )
-        self.unlock_function = "pg_advisory_unlock{shared_str}".format(shared_str=shared_str)
+        self.lock_function = f"pg{try_str}_advisory_lock{shared_str}"
+        self.unlock_function = f"pg_advisory_unlock{shared_str}"
 
     def get_lock_id(self, name):
         """
@@ -37,14 +35,13 @@ class PostgresLock:
         """
         # Python 3 crc32 returns an unsigned integer, so we need to ensure we return a signed
         # integer instead.
-        lock_id = crc32(name.encode()) & 0xFFFFFFFF
-        return lock_id
+        return crc32(name.encode()) & 0xFFFFFFFF
 
     def lock(self):
         self.cursor = self.database_connection.cursor()
         self.cursor.execute(
-            "SELECT {lock_function}(%(lock_id)s)".format(lock_function=self.lock_function),
-            {"lock_function": self.lock_function, "lock_id": self.lock_id},
+            f"SELECT {self.lock_function}(%(lock_id)s)",
+            {"lock_id": self.lock_id},
         )
 
         if self.try_lock:
@@ -56,8 +53,8 @@ class PostgresLock:
 
     def release(self):
         self.cursor.execute(
-            "SELECT {unlock_function}(%(lock_id)s)".format(unlock_function=self.unlock_function),
-            {"unlock_function": self.unlock_function, "lock_id": self.lock_id},
+            f"SELECT {self.unlock_function}(%(lock_id)s)",
+            {"lock_id": self.lock_id},
         )
         self.cursor.close()
 

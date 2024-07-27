@@ -32,10 +32,10 @@ check: ## Check for any obvious errors in the project's setup.
 check: pipdeptree-check
 
 format: ## Run this project's code formatters.
-format: black-format isort-format
+format: ruff-format
 
 lint: ## Lint the project.
-lint: black-lint isort-lint flake8-lint
+lint: ruff-lint
 
 test: ## Run unit and integration tests.
 test: django-test
@@ -107,19 +107,6 @@ pip-install-local: venv-check
 	pip install -r requirements/local.txt
 
 
-# ISort
-isort-lint:
-	isort --check-only --diff postgres_lock tests
-
-isort-format:
-	isort postgres_lock tests
-
-
-# Flake8
-flake8-lint:
-	flake8 postgres_lock
-
-
 # Coverage
 coverage-report: coverage-combine coverage-html coverage-xml
 	coverage report --show-missing
@@ -139,17 +126,19 @@ coverage-clean:
 	rm -f .coverage
 
 
-# Black
-black-lint:
-	black --check postgres_lock tests setup.py
+# ruff
+ruff-lint:
+	ruff check
+	ruff format --check
 
-black-format:
-	black postgres_lock tests setup.py
+ruff-format:
+	ruff check --fix-only
+	ruff format
 
 
-#pipdeptree
+# pipdeptree
 pipdeptree-check:
-	@pipdeptree --warn fail > /dev/null
+	pipdeptree --warn fail >/dev/null
 
 
 # Project testing
