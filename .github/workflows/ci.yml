@@ -6,7 +6,7 @@ concurrency:
 jobs:
   matrix:
     name: Build test matrix
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
 
   test:
     name: Test -- ${{ matrix.tox_env }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: matrix
     strategy:
       matrix:
@@ -57,7 +57,7 @@ jobs:
           tox -e ${{ matrix.tox_env }}
     services:
       postgres:
-        image: postgres:15-alpine
+        image: postgres:16-alpine
         env:
           POSTGRES_PASSWORD: password
         ports:
