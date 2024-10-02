@@ -1,7 +1,7 @@
 -r testing.txt
 
 bump2version==1.0.1
-Django>=4.2,<5.0
+Django>=5.2,<6.0
 psycopg==3.2.3
 tox==4.21.2
 tox-uv==1.13.0
