@@ -57,7 +57,7 @@ jobs:
           tox -e ${{ matrix.tox_env }}
     services:
       postgres:
-        image: postgres:16-alpine
+        image: postgres:17-alpine
         env:
           POSTGRES_PASSWORD: password
         ports:
