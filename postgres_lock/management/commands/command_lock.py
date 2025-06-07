@@ -45,7 +45,7 @@ class Command(BaseCommand):
             using=options["database"],
         ) as acquired:
             if acquired:
-                completed = subprocess.run(options["command"])  # noqa:S603
+                completed = subprocess.run(options["command"], check=False)  # noqa:S603
                 # Raise the return code of the child process if an error occurs
                 if completed.returncode != 0:
                     sys.exit(completed.returncode)
