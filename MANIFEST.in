@@ -1,6 +1,1 @@
-include README.md
-include LICENSE
-graft postgres_lock
-global-exclude *.py[co]
-global-exclude __pycache__
-global-exclude .DS_Store
+prune tests

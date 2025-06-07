@@ -1,3 +1,44 @@
+[project]
+name = 'django-postgres-lock'
+version = '0.1.1'
+description = 'Django Postgres Lock'
+readme = 'README.md'
+maintainers = [{ name = 'The Developer Society', email = 'studio@dev.ngo' }]
+requires-python = '>= 3.9'
+dependencies = [
+  'Django>=3.2',
+]
+license = 'BSD-3-Clause'
+classifiers = [
+  'Environment :: Web Environment',
+  'Framework :: Django',
+  'Framework :: Django :: 3.2',
+  'Framework :: Django :: 4.2',
+  'Framework :: Django :: 5.2',
+  'Intended Audience :: Developers',
+  'Operating System :: OS Independent',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',
+  'Programming Language :: Python :: 3.13',
+]
+
+[project.urls]
+Homepage = 'https://github.com/developersociety/django-postgres-lock'
+
+[build-system]
+requires = ['setuptools >= 77.0.3']
+build-backend = 'setuptools.build_meta'
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ['postgres_lock*']
+
 [tool.ruff]
 line-length = 99
 target-version = 'py39'
