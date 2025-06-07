@@ -1,4 +1,4 @@
-include README.rst
+include README.md
 include LICENSE
 graft postgres_lock
 global-exclude *.py[co]
