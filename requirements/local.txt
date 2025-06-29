@@ -3,5 +3,5 @@
 bump-my-version==1.2.0
 Django>=5.2,<6.0
 psycopg==3.2.9
-tox==4.26.0
-tox-uv==1.26.0
+tox==4.27.0
+tox-uv==1.26.1
