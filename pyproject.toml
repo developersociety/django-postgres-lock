@@ -1,6 +1,6 @@
 [project]
 name = 'django-postgres-lock'
-version = '0.1.1'
+version = '0.2'
 description = 'Django Postgres Lock'
 readme = 'README.md'
 maintainers = [{ name = 'The Developer Society', email = 'studio@dev.ngo' }]
