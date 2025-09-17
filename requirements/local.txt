@@ -1,7 +1,7 @@
 -r testing.txt
 
-bump-my-version==1.2.0
+bump-my-version==1.2.2
 Django>=5.2,<6.0
-psycopg==3.2.9
-tox==4.27.0
-tox-uv==1.26.1
+psycopg==3.2.10
+tox==4.30.2
+tox-uv==1.28.0
